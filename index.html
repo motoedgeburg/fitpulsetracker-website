@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPulseTracker — Free iOS Workout App</title>
+    <meta name="description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads. Build custom workouts and track your progress automatically.">
+    <meta property="og:title" content="FitPulseTracker — Free iOS Workout App">
+    <meta property="og:description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads. Build custom workouts and track your progress automatically.">
+    <meta property="og:image" content="images/hero_phone.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FitPulseTracker — Free iOS Workout App">
+    <meta name="twitter:description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads.">
+    <meta name="twitter:image" content="images/hero_phone.png">
+    <meta name="apple-itunes-app" content="app-id=6743099515">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" href="images/AppIcon-256.png">
+    <link rel="apple-touch-icon" href="images/AppIcon-256.png">
+    <style>
+        /* ============================================
+           RESET
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================
+           DESIGN TOKENS
+           ============================================ */
+        :root {
+            --bg: #000000;
+            --surface: #111111;
+            --surface-2: #1a1a1a;
+            --accent: #FF6B00;
+            --blue: #007AFF;
+            --text: #FFFFFF;
+            --text-secondary: #999999;
+            --text-tertiary: #666666;
+            --border: #222222;
+            --radius: 16px;
+            --radius-pill: 50px;
+            --max-width: 1100px;
+        }
+
+        /* ============================================
+           BASE
+           ============================================ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ============================================
+           UTILITIES
+           ============================================ */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero-image-wrap {
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.3s forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-group .fade-in:nth-child(2) {
+            transition-delay: 0.12s;
+        }
+
+        .card-group .fade-in:nth-child(3) {
+            transition-delay: 0.24s;
+        }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            white-space: nowrap;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            padding: 60px 24px 80px;
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-text {
+            text-align: center;
+        }
+
+        .hero-pretitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero-headline {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin: 24px auto 0;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .hero-badge {
+            margin-top: 32px;
+            display: inline-block;
+            transition: opacity 0.2s ease;
+        }
+
+        .hero-badge:hover {
+            opacity: 0.85;
+        }
+
+        .hero-badge img {
+            width: 160px;
+        }
+
+        .hero-note {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+
+        .hero-image-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image-wrap img {
+            max-width: 320px;
+            width: 100%;
+        }
+
+        /* ============================================
+           PAIN POINT HOOK
+           ============================================ */
+        .hook {
+            background: var(--surface);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .hook-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hook-main {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .hook-body {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            line-height: 1.7;
+        }
+
+        .hook-cta {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 24px;
+        }
+
+        /* ============================================
+           FEATURES
+           ============================================ */
+        .feature-section {
+            padding: 80px 24px;
+        }
+
+        .feature-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .feature-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-image img {
+            max-width: 280px;
+            width: 100%;
+        }
+
+        .feature-text {
+            max-width: 480px;
+        }
+
+        .feature-label {
+            font-size: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .feature-headline {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 12px;
+            line-height: 1.2;
+        }
+
+        .feature-body {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           SHOWCASE
+           ============================================ */
+        .showcase {
+            background: var(--bg);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .showcase-phones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .showcase-phones img {
+            max-width: 280px;
+            width: 100%;
+        }
+
+        .showcase-side {
+            display: none;
+        }
+
+        /* ============================================
+           HOW IT WORKS
+           ============================================ */
+        .how-it-works {
+            background: var(--surface);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .how-headline {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 48px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: var(--surface-2);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: left;
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--accent);
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 16px;
+        }
+
+        .step-body {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           SOCIAL PROOF
+           ============================================ */
+        .reviews {
+            background: var(--bg);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .reviews-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: var(--max-width);
+            margin: 48px auto 0;
+        }
+
+        .review-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: left;
+            transition: transform 0.3s ease;
+            border-left: 3px solid var(--accent);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .review-stars {
+            font-size: 18px;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .review-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 12px;
+        }
+
+        .review-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-top: 12px;
+        }
+
+        .review-name {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        /* ============================================
+           DOWNLOAD CTA
+           ============================================ */
+        .cta {
+            background: var(--surface);
+            padding: 100px 24px;
+            text-align: center;
+        }
+
+        .cta-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            margin: 0 auto 32px;
+        }
+
+        .cta-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .cta-sub {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .cta-body {
+            font-size: 18px;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+        }
+
+        .cta-badge {
+            margin-top: 40px;
+            display: inline-block;
+            transition: opacity 0.2s ease;
+        }
+
+        .cta-badge:hover {
+            opacity: 0.85;
+        }
+
+        .cta-badge img {
+            width: 160px;
+        }
+
+        .cta-note {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-copy {
+            font-size: 14px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           FOCUS STYLES
+           ============================================ */
+        a:focus-visible,
+        .nav-cta:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           DESKTOP  (min-width: 901px)
+           ============================================ */
+        @media (min-width: 901px) {
+            .hero-grid {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 60px;
+            }
+
+            .hero-text {
+                flex: 1;
+                text-align: left;
+            }
+
+            .hero-sub {
+                margin: 24px 0 0;
+            }
+
+            .hero-headline {
+                font-size: 72px;
+            }
+
+            .hero-sub {
+                font-size: 20px;
+            }
+
+            .hero-image-wrap {
+                flex: 0 0 auto;
+            }
+
+            .hero-image-wrap img {
+                max-width: 380px;
+            }
+
+            .hook-main {
+                font-size: 32px;
+            }
+
+            .hook-body {
+                font-size: 20px;
+            }
+
+            .hook-cta {
+                font-size: 24px;
+            }
+
+            .feature-grid {
+                flex-direction: row;
+                align-items: center;
+                gap: 60px;
+            }
+
+            .feature-grid.reversed {
+                flex-direction: row-reverse;
+            }
+
+            .feature-image {
+                flex: 0 0 320px;
+                min-height: 500px;
+            }
+
+            .feature-image img {
+                max-width: 320px;
+            }
+
+            .feature-text {
+                flex: 1;
+            }
+
+            .feature-headline {
+                font-size: 42px;
+            }
+
+            .showcase-side {
+                display: block;
+                max-width: 250px;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+            }
+
+            .showcase-side:hover {
+                opacity: 1;
+            }
+
+            .showcase-center {
+                max-width: 300px;
+            }
+
+            .how-headline {
+                font-size: 48px;
+            }
+
+            .steps {
+                flex-direction: row;
+            }
+
+            .step-card {
+                flex: 1;
+            }
+
+            .reviews-grid {
+                flex-direction: row;
+            }
+
+            .review-card {
+                flex: 1;
+            }
+
+            .cta-headline {
+                font-size: 64px;
+            }
+
+            .cta-sub {
+                font-size: 24px;
+            }
+        }
+
+        /* ============================================
+           SMALL MOBILE  (max-width: 400px)
+           ============================================ */
+        @media (max-width: 400px) {
+            .hero {
+                padding: 40px 16px 60px;
+            }
+
+            .hero-headline {
+                font-size: 38px;
+            }
+
+            .feature-headline {
+                font-size: 28px;
+            }
+
+            .how-headline {
+                font-size: 30px;
+            }
+
+            .cta-headline {
+                font-size: 34px;
+            }
+
+            .nav-logo {
+                font-size: 16px;
+            }
+        }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .hero-text,
+            .hero-image-wrap {
+                animation: none;
+                opacity: 1;
+            }
+
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .step-card:hover,
+            .review-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== NAV ====== -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="images/AppIcon-256.png" alt="FitPulseTracker icon" width="30" height="30">
+                FitPulseTracker
+            </a>
+            <a href="https://apps.apple.com/us/app/fitpulsetracker/id6743099515" class="nav-cta" target="_blank" rel="noopener noreferrer">Download Free</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- ====== HERO ====== -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <p class="hero-pretitle">fitpulsetracker</p>
+                    <h1 class="hero-headline">
+                        Your workout.<br>
+                        Your pace.<br>
+                        Your progress.
+                    </h1>
+                    <p class="hero-sub">Most workout apps either cost money or get in your way. FitPulseTracker does neither.</p>
+                    <a href="https://apps.apple.com/us/app/fitpulsetracker/id6743099515" class="hero-badge" target="_blank" rel="noopener noreferrer">
+                        <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" width="160">
+                    </a>
+                    <p class="hero-note">No subscription. No ads. No limits.</p>
+                </div>
+                <div class="hero-image-wrap">
+                    <img src="images/hero_phone.png" alt="FitPulseTracker app on iPhone" width="380">
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== PAIN POINT HOOK ====== -->
+        <section class="hook">
+            <div class="hook-inner fade-in">
+                <p class="hook-main">You're mid-workout. Sweating. Focused.</p>
+                <p class="hook-body">The last thing you need is an app slowing you down, asking you to upgrade, or making you count seconds yourself.</p>
+                <p class="hook-cta">There's a better way.</p>
+            </div>
+        </section>
+
+        <!-- ====== FEATURE 1 — TIMED EXERCISES ====== -->
+        <section class="feature-section" style="background: var(--bg);">
+            <div class="container feature-grid reversed fade-in">
+                <div class="feature-image">
+                    <img src="images/feature1_timer.png" alt="FitPulseTracker countdown timer screen" loading="lazy" width="320">
+                </div>
+                <div class="feature-text">
+                    <span class="feature-label">Feature</span>
+                    <h2 class="feature-headline">Never watch a clock again.</h2>
+                    <p class="feature-body">A full-screen countdown ring tells you exactly how many seconds are left — so you can keep your eyes on the workout, not the phone. Orange for rest. Blue for active. Teal for transitions. Every state is instantly recognizable.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== FEATURE 2 — REP & WEIGHT TRACKING ====== -->
+        <section class="feature-section" style="background: var(--surface);">
+            <div class="container feature-grid fade-in">
+                <div class="feature-image">
+                    <img src="images/feature2_reps.png" alt="FitPulseTracker rep and weight tracking screen" loading="lazy" width="320">
+                </div>
+                <div class="feature-text">
+                    <span class="feature-label">Feature</span>
+                    <h2 class="feature-headline">Every set. Every rep. Every pound.</h2>
+                    <p class="feature-body">Tap Complete Set and move on. FitPulseTracker logs your weight and reps automatically as you go — so at your next workout, you know exactly what you lifted and exactly what to beat.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== FEATURE 3 — BUILD ANY WORKOUT ====== -->
+        <section class="feature-section" style="background: var(--bg);">
+            <div class="container feature-grid reversed fade-in">
+                <div class="feature-image">
+                    <img src="images/feature3_workout.png" alt="FitPulseTracker workout builder screen" loading="lazy" width="320">
+                </div>
+                <div class="feature-text">
+                    <span class="feature-label">Feature</span>
+                    <h2 class="feature-headline">Your routine. Built once. Ready forever.</h2>
+                    <p class="feature-body">Create custom workouts with any mix of timed holds, rep sets, and rest periods. Gym day, yoga flow, bodyweight circuit — one app handles all of it. Reorder, duplicate, and refine whenever you want.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== FEATURE 4 — WORKOUT HISTORY ====== -->
+        <section class="feature-section" style="background: var(--surface);">
+            <div class="container feature-grid fade-in">
+                <div class="feature-image">
+                    <img src="images/feature4_history.png" alt="FitPulseTracker workout history screen" loading="lazy" width="320">
+                </div>
+                <div class="feature-text">
+                    <span class="feature-label">Feature</span>
+                    <h2 class="feature-headline">Every session saved. Nothing lost.</h2>
+                    <p class="feature-body">Your full workout history — grouped by month, with duration, exercises, and total sets — saved automatically after every session. No manual logging. No data entry. Just train and it's done.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SHOWCASE ====== -->
+        <section class="showcase">
+            <p class="section-label fade-in">See it in action</p>
+            <div class="showcase-phones fade-in">
+                <img src="images/showcase1_list.png" alt="FitPulseTracker exercise list view" class="showcase-side" loading="lazy" width="250">
+                <img src="images/showcase2_timer.png" alt="FitPulseTracker timer in action" class="showcase-center" loading="lazy" width="300">
+                <img src="images/showcase3_complete.png" alt="FitPulseTracker workout complete screen" class="showcase-side" loading="lazy" width="250">
+            </div>
+        </section>
+
+        <!-- ====== HOW IT WORKS ====== -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="how-headline fade-in">Three steps. That's it.</h2>
+                <div class="steps card-group">
+                    <div class="step-card fade-in">
+                        <span class="step-number">01</span>
+                        <h3 class="step-title">Build your workout</h3>
+                        <p class="step-body">Add your exercises, sets, reps, weights, and rest times. Takes two minutes.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <span class="step-number">02</span>
+                        <h3 class="step-title">Start training</h3>
+                        <p class="step-body">Hit Start. The app guides you through every set, every rest, every transition — automatically.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <span class="step-number">03</span>
+                        <h3 class="step-title">Track your progress</h3>
+                        <p class="step-body">Your history builds itself. Come back tomorrow and pick up exactly where you left off.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SOCIAL PROOF ====== -->
+        <section class="reviews">
+            <p class="section-label fade-in">What people are saying</p>
+            <div class="reviews-grid card-group">
+                <div class="review-card fade-in">
+                    <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p class="review-title">Just works</p>
+                    <p class="review-text">"Finally a workout app that doesn't charge you for basic features. Tracks sets, reps, and weight automatically. The timer rings are super clear during rest periods. No subscription, no ads, just works."</p>
+                    <p class="review-name">— App Store Review</p>
+                </div>
+                <div class="review-card fade-in">
+                    <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p class="review-title">Handles everything</p>
+                    <p class="review-text">"I do a mix of gym days and bodyweight workouts at home and this app handles both perfectly. Love that I can see my full history after every session. Clean interface, easy to use, and completely free."</p>
+                    <p class="review-name">— App Store Review</p>
+                </div>
+                <div class="review-card fade-in">
+                    <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p class="review-title">Actually free</p>
+                    <p class="review-text">"Tried several workout apps and they all wanted a subscription after a week. This one is genuinely free with no limits. Tracks reps, weight, and time. History saves automatically. Exactly what I was looking for."</p>
+                    <p class="review-name">— App Store Review</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== DOWNLOAD CTA ====== -->
+        <section class="cta">
+            <div class="container fade-in">
+                <img src="images/AppIcon-256.png" alt="" class="cta-icon" width="80" height="80">
+                <h2 class="cta-headline">Free on the App Store.</h2>
+                <p class="cta-sub">No subscription. No ads. Just train.</p>
+                <p class="cta-body">The workout app that gets out of your way — and never charges you for it.</p>
+                <a href="https://apps.apple.com/us/app/fitpulsetracker/id6743099515" class="cta-badge" target="_blank" rel="noopener noreferrer">
+                    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" width="160" loading="lazy">
+                </a>
+                <p class="cta-note">Available on iPhone and iPad · iOS 17+</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <p class="footer-copy">&copy; 2026 Carlos Alberto Hernandez</p>
+        <div class="footer-links">
+            <a href="https://sites.google.com/view/fitpulsetracker-privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            <a href="mailto:support@fitpulsetracker.app">Contact</a>
+            <a href="https://instagram.com/fitpulsetracker" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://tiktok.com/@fitpulsetracker" target="_blank" rel="noopener noreferrer">TikTok</a>
+        </div>
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script>
+        // Scroll-triggered fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Nav scroll effect
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+    </script>
+
+</body>
+</html>
