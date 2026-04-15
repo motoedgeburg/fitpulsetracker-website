@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — FitPulseTracker</title>
+    <meta name="description" content="FitPulseTracker privacy policy. We do not collect, store, or transmit any personal information. All data stays on your device.">
+    <meta property="og:title" content="Privacy Policy — FitPulseTracker">
+    <meta property="og:description" content="FitPulseTracker privacy policy. We do not collect, store, or transmit any personal information.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fitpulsetracker.app/privacy">
+    <meta name="apple-itunes-app" content="app-id=6761276830">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" href="images/AppIcon-256.png">
+    <link rel="apple-touch-icon" href="images/AppIcon-256.png">
+    <link rel="canonical" href="https://fitpulsetracker.app/privacy">
+    <style>
+        /* ============================================
+           RESET
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================
+           DESIGN TOKENS
+           ============================================ */
+        :root {
+            --bg: #000000;
+            --surface: #111111;
+            --surface-2: #1a1a1a;
+            --accent: #FF6B00;
+            --text: #FFFFFF;
+            --text-secondary: #999999;
+            --text-tertiary: #666666;
+            --border: #222222;
+            --radius: 16px;
+            --radius-pill: 50px;
+            --max-width: 760px;
+        }
+
+        /* ============================================
+           BASE
+           ============================================ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            white-space: nowrap;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        /* ============================================
+           POLICY CONTENT
+           ============================================ */
+        .policy {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 80px 24px 100px;
+        }
+
+        .policy-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .policy h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.1;
+            margin-top: 12px;
+        }
+
+        .policy-updated {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+        }
+
+        .policy-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .policy-section {
+            margin-top: 40px;
+        }
+
+        .policy-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .policy-section p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-top: 12px;
+        }
+
+        .policy-section a {
+            color: var(--accent);
+            transition: opacity 0.2s ease;
+        }
+
+        .policy-section a:hover {
+            opacity: 0.8;
+        }
+
+        .policy-summary {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            margin-top: 40px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .policy-summary p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .policy-summary strong {
+            color: var(--text);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-copy {
+            font-size: 14px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           FOCUS STYLES
+           ============================================ */
+        a:focus-visible,
+        .nav-cta:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           DESKTOP
+           ============================================ */
+        @media (min-width: 901px) {
+            .policy h1 {
+                font-size: 56px;
+            }
+        }
+
+        /* ============================================
+           SMALL MOBILE
+           ============================================ */
+        @media (max-width: 400px) {
+            .policy h1 {
+                font-size: 32px;
+            }
+
+            .policy {
+                padding: 60px 16px 80px;
+            }
+
+            .nav-logo {
+                font-size: 16px;
+            }
+        }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== NAV ====== -->
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="images/AppIcon-256.png" alt="FitPulseTracker icon" width="30" height="30">
+                FitPulseTracker
+            </a>
+            <a href="https://apps.apple.com/us/app/fitpulsetracker/id6761276830" class="nav-cta" target="_blank" rel="noopener noreferrer">Download Free</a>
+        </div>
+    </nav>
+
+    <main>
+        <article class="policy">
+            <p class="policy-label">Legal</p>
+            <h1>Privacy Policy</h1>
+            <p class="policy-updated">Last updated: March 26, 2026</p>
+
+            <hr class="policy-divider">
+
+            <div class="policy-summary">
+                <p><strong>The short version:</strong> FitPulseTracker does not collect, store, or transmit any personal information. All workout data is stored locally on your device and never leaves it.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Data Collection</h2>
+                <p>FitPulseTracker does not collect any personal data. We do not require you to create an account, provide an email address, or share any identifying information to use the app.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Data Storage</h2>
+                <p>All workout data — including your exercises, sets, reps, weights, and history — is stored locally on your device only. This data never leaves your device and is not transmitted to any server.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Third Parties</h2>
+                <p>We do not share, sell, or transmit any data to third parties. There are no analytics services, advertising SDKs, or tracking tools embedded in the app.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Children's Privacy</h2>
+                <p>We do not collect data from children or anyone. Since no personal information is collected from any user, the app is safe for users of all ages.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Changes to This Policy</h2>
+                <p>If this privacy policy is ever updated, the changes will be reflected on this page with an updated revision date.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Contact</h2>
+                <p>If you have questions about this privacy policy, contact us at <a href="mailto:support@fitpulsetracker.app">support@fitpulsetracker.app</a>.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <p class="footer-copy">&copy; 2026 Carlos Alberto Hernandez</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="mailto:support@fitpulsetracker.app">Contact</a>
+            <a href="https://instagram.com/fitpulsetracker" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://tiktok.com/@fitpulsetracker" target="_blank" rel="noopener noreferrer">TikTok</a>
+        </div>
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script>
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+    </script>
+
+</body>
+</html>
