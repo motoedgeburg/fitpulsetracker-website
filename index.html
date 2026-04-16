@@ -14,11 +14,30 @@
     <meta name="twitter:title" content="FitPulseTracker — Free iOS Workout App">
     <meta name="twitter:description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads.">
     <meta name="twitter:image" content="https://fitpulsetracker.app/images/hero_phone.png">
+    <meta name="twitter:site" content="@fitpulsetracker">
     <link rel="canonical" href="https://fitpulsetracker.app">
     <meta name="apple-itunes-app" content="app-id=6761276830">
     <meta name="theme-color" content="#000000">
-    <link rel="icon" type="image/png" href="images/AppIcon-256.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
     <link rel="apple-touch-icon" href="images/AppIcon-256.png">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "FitPulseTracker",
+        "operatingSystem": "iOS",
+        "applicationCategory": "HealthApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads.",
+        "url": "https://fitpulsetracker.app",
+        "downloadUrl": "https://apps.apple.com/us/app/fitpulsetracker/id6761276830",
+        "image": "https://fitpulsetracker.app/images/AppIcon-256.png"
+    }
+    </script>
     <style>
         /* ============================================
            RESET
@@ -40,7 +59,7 @@
             --blue: #007AFF;
             --text: #FFFFFF;
             --text-secondary: #999999;
-            --text-tertiary: #666666;
+            --text-tertiary: #757575;
             --border: #222222;
             --radius: 16px;
             --radius-pill: 50px;
@@ -310,6 +329,11 @@
            ============================================ */
         .feature-section {
             padding: 80px 24px;
+            background: var(--bg);
+        }
+
+        .feature-section.alt {
+            background: var(--surface);
         }
 
         .feature-grid {
@@ -380,7 +404,12 @@
         }
 
         .showcase-side {
-            display: none;
+            max-width: 130px;
+            opacity: 0.7;
+        }
+
+        .showcase-center {
+            max-width: 160px;
         }
 
         /* ============================================
@@ -640,14 +669,11 @@
 
             .hero-sub {
                 margin: 24px 0 0;
+                font-size: 20px;
             }
 
             .hero-headline {
                 font-size: 72px;
-            }
-
-            .hero-sub {
-                font-size: 20px;
             }
 
             .hero-image-wrap {
@@ -801,7 +827,7 @@
     <!-- ====== NAV ====== -->
     <nav>
         <div class="nav-inner">
-            <a href="#" class="nav-logo">
+            <a href="/" class="nav-logo">
                 <img src="images/AppIcon-256.png" alt="FitPulseTracker icon" width="30" height="30">
                 FitPulseTracker
             </a>
@@ -843,7 +869,7 @@
         </section>
 
         <!-- ====== FEATURE 1 — TIMED EXERCISES ====== -->
-        <section class="feature-section" style="background: var(--bg);">
+        <section class="feature-section">
             <div class="container feature-grid reversed fade-in">
                 <div class="feature-image">
                     <img src="images/feature1_timer.png" alt="FitPulseTracker countdown timer screen" loading="lazy" width="320">
@@ -857,7 +883,7 @@
         </section>
 
         <!-- ====== FEATURE 2 — REP & WEIGHT TRACKING ====== -->
-        <section class="feature-section" style="background: var(--surface);">
+        <section class="feature-section alt">
             <div class="container feature-grid fade-in">
                 <div class="feature-image">
                     <img src="images/feature2_reps.png" alt="FitPulseTracker rep and weight tracking screen" loading="lazy" width="320">
@@ -871,7 +897,7 @@
         </section>
 
         <!-- ====== FEATURE 3 — BUILD ANY WORKOUT ====== -->
-        <section class="feature-section" style="background: var(--bg);">
+        <section class="feature-section">
             <div class="container feature-grid reversed fade-in">
                 <div class="feature-image">
                     <img src="images/feature3_workout.png" alt="FitPulseTracker workout builder screen" loading="lazy" width="320">
@@ -885,7 +911,7 @@
         </section>
 
         <!-- ====== FEATURE 4 — WORKOUT HISTORY ====== -->
-        <section class="feature-section" style="background: var(--surface);">
+        <section class="feature-section alt">
             <div class="container feature-grid fade-in">
                 <div class="feature-image">
                     <img src="images/feature4_history.png" alt="FitPulseTracker workout history screen" loading="lazy" width="320">
