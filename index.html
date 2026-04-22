@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitPulseTracker — Free iOS Workout App</title>
-    <meta name="description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads. Build custom workouts and track your progress automatically.">
+    <meta name="description" content="Free iOS workout app with 500+ exercises across strength, yoga, and mobility. Timed exercises, rep tracking, weight logging, and full workout history. No subscription. No ads.">
     <meta property="og:title" content="FitPulseTracker — Free iOS Workout App">
-    <meta property="og:description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads. Build custom workouts and track your progress automatically.">
+    <meta property="og:description" content="Free iOS workout app with 500+ exercises across strength, yoga, and mobility. Timed exercises, rep tracking, weight logging, and full workout history. No subscription. No ads.">
     <meta property="og:image" content="https://fitpulsetracker.app/images/hero_phone.png">
     <meta property="og:url" content="https://fitpulsetracker.app">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="FitPulseTracker — Free iOS Workout App">
-    <meta name="twitter:description" content="Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads.">
+    <meta name="twitter:description" content="Free iOS workout app with 500+ exercises across strength, yoga, and mobility. No subscription. No ads.">
     <meta name="twitter:image" content="https://fitpulsetracker.app/images/hero_phone.png">
     <meta name="twitter:site" content="@fitpulsetracker">
     <link rel="canonical" href="https://fitpulsetracker.app">
@@ -32,7 +32,7 @@
             "price": "0",
             "priceCurrency": "USD"
         },
-        "description": "Free iOS workout app for timed exercises, rep tracking, and weight logging. No subscription. No ads.",
+        "description": "Free iOS workout app with 500+ exercises across strength, yoga, and mobility. Timed exercises, rep tracking, weight logging, and full workout history. No subscription. No ads.",
         "url": "https://fitpulsetracker.app",
         "downloadUrl": "https://apps.apple.com/us/app/fitpulsetracker/id6761276830",
         "image": "https://fitpulsetracker.app/images/AppIcon-256.png"
@@ -526,6 +526,49 @@
         }
 
         /* ============================================
+           FAQ
+           ============================================ */
+        .faq {
+            background: var(--bg);
+            padding: 80px 24px;
+        }
+
+        .faq-headline {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .faq-answer {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+
+        /* ============================================
            DOWNLOAD CTA
            ============================================ */
         .cta {
@@ -757,6 +800,10 @@
                 flex: 1;
             }
 
+            .faq-headline {
+                font-size: 48px;
+            }
+
             .cta-headline {
                 font-size: 64px;
             }
@@ -877,7 +924,7 @@
                 <div class="feature-text">
                     <span class="feature-label">Feature</span>
                     <h2 class="feature-headline">Never watch a clock again.</h2>
-                    <p class="feature-body">A full-screen countdown ring tells you exactly how many seconds are left — so you can keep your eyes on the workout, not the phone. Orange for rest. Blue for active. Teal for transitions. Every state is instantly recognizable.</p>
+                    <p class="feature-body">A full-screen countdown ring tells you exactly how long is left — from quick holds to hour-long sessions displayed as "1h 12m 30s." Orange for rest. Blue for active. Teal for transitions. Every state is instantly recognizable, and total duration accounts for every rest period, including between exercises.</p>
                 </div>
             </div>
         </section>
@@ -905,7 +952,7 @@
                 <div class="feature-text">
                     <span class="feature-label">Feature</span>
                     <h2 class="feature-headline">Your routine. Built once. Ready forever.</h2>
-                    <p class="feature-body">Create custom workouts with any mix of timed holds, rep sets, and rest periods. Gym day, yoga flow, bodyweight circuit — one app handles all of it. Reorder, duplicate, and refine whenever you want.</p>
+                    <p class="feature-body">Create custom workouts with any mix of timed holds, rep sets, and rest periods. Choose from a built-in library with over 50 yoga and mobility exercises, or add your own. Gym day, yoga flow, bodyweight circuit — one app handles all of it. Switch between System, Light, or Dark mode to match your style.</p>
                 </div>
             </div>
         </section>
@@ -919,7 +966,7 @@
                 <div class="feature-text">
                     <span class="feature-label">Feature</span>
                     <h2 class="feature-headline">Every session saved. Every detail reviewable.</h2>
-                    <p class="feature-body">Tap any past workout to see exactly what you did — every exercise, set, rep, and weight. Spot a mistake? Edit or delete any set right from your history. Everything is saved automatically, grouped by month, so you always know where you stand.</p>
+                    <p class="feature-body">Search by name or tap any past workout to see exactly what you did — every exercise, set, rep, and weight. Spot a mistake? Edit or delete any set right from your history. Everything is saved automatically, grouped by month, so you always know where you stand.</p>
                 </div>
             </div>
         </section>
@@ -964,21 +1011,40 @@
             <div class="reviews-grid card-group">
                 <div class="review-card fade-in">
                     <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
-                    <p class="review-title">Just works</p>
-                    <p class="review-text">"Finally a workout app that doesn't charge you for basic features. Tracks sets, reps, and weight automatically. The timer rings are super clear during rest periods. No subscription, no ads, just works."</p>
-                    <p class="review-name">— App Store Review</p>
+                    <p class="review-title">Great workout companion</p>
+                    <p class="review-text">"I love how easy it is to build the workout and then talks through everything as I go. It's very easy to use but also allows for the customization I look for and takes me through the whole workout without having to think about it. And all for free with no ads!"</p>
+                    <p class="review-name">— epj9871 on the App Store</p>
                 </div>
                 <div class="review-card fade-in">
                     <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
-                    <p class="review-title">Handles everything</p>
-                    <p class="review-text">"I do a mix of gym days and bodyweight workouts at home and this app handles both perfectly. Love that I can see my full history after every session. Clean interface, easy to use, and completely free."</p>
-                    <p class="review-name">— App Store Review</p>
+                    <p class="review-title">Very useful app</p>
+                    <p class="review-text">"I do a mix of gym days and bodyweight workouts at home and this app handles both perfectly. Love that I can see my full history after every session. Clean interface, easy to use, and completely free. Best workout app I've tried."</p>
+                    <p class="review-name">— Huey8H on the App Store</p>
                 </div>
-                <div class="review-card fade-in">
-                    <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
-                    <p class="review-title">Actually free</p>
-                    <p class="review-text">"Tried several workout apps and they all wanted a subscription after a week. This one is genuinely free with no limits. Tracks reps, weight, and time. History saves automatically. Exactly what I was looking for."</p>
-                    <p class="review-name">— App Store Review</p>
+            </div>
+        </section>
+
+        <!-- ====== FAQ ====== -->
+        <section class="faq">
+            <div class="container">
+                <h2 class="faq-headline fade-in">Frequently asked questions</h2>
+                <div class="faq-list fade-in">
+                    <div class="faq-item">
+                        <p class="faq-question">Is FitPulseTracker really free?</p>
+                        <p class="faq-answer">Yes. No subscription, no ads, no in-app purchases. Every feature is available from day one.</p>
+                    </div>
+                    <div class="faq-item">
+                        <p class="faq-question">Does it work without an internet connection?</p>
+                        <p class="faq-answer">Yes. Everything runs on-device. Build workouts, train, and review your history entirely offline.</p>
+                    </div>
+                    <div class="faq-item">
+                        <p class="faq-question">Can I use it for yoga and stretching, not just strength training?</p>
+                        <p class="faq-answer">Absolutely. The exercise library includes 500+ exercises across 14 categories, including yoga, mobility, and stretching. Build timed flows or rep-based routines for any workout style.</p>
+                    </div>
+                    <div class="faq-item">
+                        <p class="faq-question">Does it work on iPad?</p>
+                        <p class="faq-answer">Yes. FitPulseTracker runs on both iPhone and iPad with iOS 17 or later.</p>
+                    </div>
                 </div>
             </div>
         </section>
